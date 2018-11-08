@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  get 'users/index'
+  
+  get 'sessions/new'
 
-  get 'users/show'
+  get 'sessions/create'
 
-  get 'users/new'
+  get 'sessions/delete'
 
-  get 'users/create'
-
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  
   root to: 'tasks#index'
   
   get 'signup' , to: 'users#new'
