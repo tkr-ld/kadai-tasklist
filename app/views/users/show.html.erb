@@ -1,2 +1,62 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="row">
+  <aside class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @user.name %></h3>
+      </div>
+      <div class="panel-body">
+        <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
+      </div>
+    </div>
+  </aside>
+  <div class="col-xs-8">
+    <ul class="nav nav-tabs nav-justified">
+      <li><a href="#">タスク</a></li>
+    </ul>
+    <ul class="media-list">
+      <% if @user.id == current_user.id %>
+      
+      #新規登録用のフォーム
+    <%= form_for(@task) do |f| %>
+      <div class="form-group">
+        <%= f.label :content, 'タスク' %>
+        <%= f.text_field :content, class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <%= f.label :status, 'ステータス' %>
+        <%= f.text_field :status, class: 'form-control' %>
+      </div>
+    
+        <%= f.submit 'タスクに追加', class: 'btn-primary' %>
+    <% end %>
+    
+        <h3>タスクの一覧</h3>
+        
+        <% @tasks.each do |task| %>
+          <li class="media">
+            <div class="media-left">
+              <img class="media-object img-rounded" src="<%= gravatar_url(task.user, { size: 50 }) %>" alt="">
+            </div>
+            <div class="media-body">
+              <div>
+                <%= link_to task.user.name, user_path(task.user) %> <span class="text-muted">posted at <%= task.created_at %></span>
+              </div>
+              <div>
+                <p>タスク内容:<%= task.content %></p>
+              </div>
+              <div>
+                <p>タスクステータス:<%= task.status %></p>
+              </div>
+              
+              <%= link_to 'このタスクを編集する', edit_task_path(task) %>
+              <%= link_to "このタスクを削除する", task, method: :delete, data: { confirm: "本当に削除してよろしいですか?" }, class: 'btn btn-danger btn-xs' %>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <h2>ログインしているユーザーのみタスクの閲覧、登録、編集、削除ができます。</h2>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<% if logged_in? %>
+  <h2><%= current_user.name %>としてログイン中です。</h2>
+  <h2><%= current_user.name %>のタスクの追加や表示は<%= link_to 'こちら', user_path(current_user) %></h2>
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>タスクリスト！！</h1>
+      <%= link_to '新規ユーザー登録', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+  </div>
+<% end %>
