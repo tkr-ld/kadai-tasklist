@@ -45,12 +45,8 @@
               <div>
                 <p>タスク内容:<%= task.content %></p>
               </div>
-              <div>
-                <p>タスクステータス:<%= task.status %></p>
-              </div>
               
-              <%= link_to 'このタスクを編集する', edit_task_path(task) %>
-              <%= link_to "このタスクを削除する", task, method: :delete, data: { confirm: "本当に削除してよろしいですか?" }, class: 'btn btn-danger btn-xs' %>
+              <%= link_to 'このタスクのステータス,編集,削除', task_path(task) %>
             </div>
           </li>
         <% end %>

@@ -1,6 +1,29 @@
 <% if logged_in? %>
-  <h2><%= current_user.name %>としてログイン中です。</h2>
-  <h2><%= current_user.name %>のタスクの追加や表示は<%= link_to 'こちら', user_path(current_user) %></h2>
+<div class="row">
+  <div class="col-xs-8">
+    <ul class="media-list">
+        <h3><%= current_user.name %>のタスクの一覧</h3>
+        
+        <% @tasks.each do |task| %>
+          <li class="media">
+            <div class="media-left">
+              <img class="media-object img-rounded" src="<%= gravatar_url(task.user, { size: 50 }) %>" alt="">
+            </div>
+            <div class="media-body">
+              <div>
+                <%= link_to task.user.name, user_path(task.user) %> <span class="text-muted">posted at <%= task.created_at %></span>
+              </div>
+              <div>
+                <p>タスク内容:<%= task.content %></p>
+              </div>
+              
+              <%= link_to 'このタスクのステータス,編集,削除', task_path(task) %>
+            </div>
+          </li>
+        <% end %>
+    </ul>
+  </div>
+</div>
 <% else %>
   <div class="center jumbotron">
     <div class="text-center">
